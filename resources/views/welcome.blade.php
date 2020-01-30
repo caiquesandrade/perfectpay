@@ -73,7 +73,7 @@
     </nav>
 
     @if(session()->get('success'))
-        <div class="alert alert-danger" id="modal">
+        <div class="alert alert-danger" id="MyPopup">
             {{ session()->get('success') }}
             <button type="button" class="close" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -152,9 +152,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
     <script type="text/javascript">
-        $(function () {
-            $("#btnClosePopup").click(function () {
-                $("#MyPopup").modal("hide");
+        $(document).ready(function(){
+            $(function () {
+                $("#btnClosePopup").click(function () {
+                    $("#MyPopup").remove();
+                });
             });
         });
     </script>
