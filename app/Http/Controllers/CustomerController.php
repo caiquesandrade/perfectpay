@@ -14,7 +14,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::all();
+        return view('customer.index', compact('customers'));
     }
 
     /**
@@ -24,7 +25,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('customer.create');
     }
 
     /**
@@ -35,7 +36,15 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'identification_type' => 'required',
+            'email' => 'required'
+        ]);
+
+        $customer = Customer::create($request->all());
+
+        return redirect('/customers')->with('success', 'Customer Created !');
     }
 
     /**
@@ -55,9 +64,10 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
+    public function edit($id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        return view('customer.edit', compact('customer'));
     }
 
     /**
@@ -67,9 +77,17 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, $id)
     {
-        //
+        $productValidation = $request->validate([
+            'name' => 'required|max:255',
+            'identification_type' => 'required',
+            'email' => 'required'
+        ]);
+
+        Customer::whereId($id)->update($productValidation);
+
+        return redirect('/customers')->with('success', 'Customer Updated !');
     }
 
     /**
@@ -78,8 +96,10 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy($id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        $customer->delete();
+        return redirect('/customers')->with('success', 'Customer Deleted !');
     }
 }

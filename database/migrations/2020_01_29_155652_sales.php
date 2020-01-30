@@ -19,7 +19,7 @@ class Sales extends Migration
             $table->integer('customer_id')->unsigned();
             $table->integer('quantity');
             $table->double('discount');
-            $table->integer('sale_amout');
+            $table->integer('sale_amount');
             $table->string('status');
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

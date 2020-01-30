@@ -14,7 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        return view('product.index', compact('products'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
@@ -35,7 +36,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'price' => 'required|regex:/^\d+(\.\d{1,2})?$/'
+        ]);
+
+        $product = Product::create($request->all());
+
+        return redirect('/products')->with('success', 'Product Created !');
+
     }
 
     /**
@@ -55,9 +64,10 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('product.edit', compact('product'));
     }
 
     /**
@@ -67,9 +77,17 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+       $productValidation = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'price' => 'required'
+        ]);
+
+        Product::whereId($id)->update($productValidation);
+
+        return redirect('/products')->with('success', 'Product Updated !');
     }
 
     /**
@@ -78,8 +96,11 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+
+        return redirect('/products')->with('success', 'Product Deleted !');
     }
 }
