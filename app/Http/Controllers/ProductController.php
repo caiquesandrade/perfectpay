@@ -43,7 +43,7 @@ class ProductController extends Controller
 
         $product = Product::create($request->all());
 
-        return redirect('/products')->with('success', 'Product Created !');
+        return redirect('/')->with('success', 'Product Created !');
 
     }
 
@@ -87,7 +87,7 @@ class ProductController extends Controller
 
         Product::whereId($id)->update($productValidation);
 
-        return redirect('/products')->with('success', 'Product Updated !');
+        return redirect('/')->with('success', 'Product Updated !');
     }
 
     /**
@@ -101,6 +101,6 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->delete();
 
-        return redirect('/products')->with('success', 'Product Deleted !');
+        return redirect('/')->with('success', 'Product Deleted !');
     }
 }

@@ -15,8 +15,6 @@
     </div><br />
   @endif
 
-
-
   <div class="container">
     <a href="{{ route('sales.create')}}" class="btn btn-primary">New Sale</a>
   <br /> <br />
@@ -43,7 +41,7 @@
             <td>{{$sale->customer_id}}</td>
             <td>{{$sale->quantity}}</td>
             <td>{{$sale->discount}}</td>
-            <td>{{$sale->sale_amout}}</td>
+            <td>{{$sale->sale_amount}}</td>
             <td>{{$sale->status}}</td>
             <td><a href="{{ route('sales.edit',$sale->id)}}" class="btn btn-primary">Edit</a></td>
             <td>

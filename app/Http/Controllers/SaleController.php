@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Customer;
 use App\Product;
 use App\Sale;
+use DateTime;
 use Illuminate\Http\Request;
+use Products;
 
 class SaleController extends Controller
 {
@@ -49,7 +51,7 @@ class SaleController extends Controller
 
         $sale = Sale::create($request->all());
 
-        return redirect('/sales')->with('success', 'Sale Created !');
+        return redirect('/')->with('success', 'Sale Created !');
     }
 
     /**
@@ -61,6 +63,38 @@ class SaleController extends Controller
     public function show(Sale $sale)
     {
         //
+    }
+
+    /**
+    * Display the specified resource.
+    *
+    * @param  Request
+    * @return \Illuminate\Http\Response
+    */
+    public function search(Request $request)
+    {
+        try {
+            $customers = Customer::all();
+            $sales = Sale::all();
+            $date = DateTime::createFromFormat('d/m/Y', $request->date_search);
+            $formatedDate = $date->format('Y-m-d');
+
+            $salesResult = Sale::query()->where([
+                ['customer_id', $request->customer_id],
+                ['created_at', 'LIKE', '%'.$formatedDate.'%'],
+                ])
+                ->get();
+
+            foreach ($salesResult as $sale) {
+                $products = Product::query()->where('id', $sale->product_id)->get();
+            }
+
+            return view('welcome', compact('products', 'customers', 'sales'));
+
+        } catch (\Throwable $th) {
+            return redirect('/')->with('success', 'Sale Not Found !');
+        }
+
     }
 
     /**
@@ -91,13 +125,13 @@ class SaleController extends Controller
             'customer_id' => 'required',
             'quantity' => 'required',
             'discount' => 'required',
-            'sale_amout' => 'required',
+            'sale_amount' => 'required',
             'status' => 'required'
         ]);
 
         Sale::whereId($id)->update($productValidation);
 
-        return redirect('/sales')->with('success', 'Sale Updated !');
+        return redirect('/')->with('success', 'Sale Updated !');
     }
 
     /**
@@ -110,6 +144,6 @@ class SaleController extends Controller
     {
         $sale = Sale::findOrFail($id);
         $sale->delete();
-        return redirect('/sales')->with('success', 'Sale Deleted !');
+        return redirect('/')->with('success', 'Sale Deleted !');
     }
 }

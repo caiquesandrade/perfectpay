@@ -13,11 +13,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', 'Controller@index');
 
 Route::resource('products', 'ProductController');
 Route::resource('sales', 'SaleController');
 Route::resource('customers', 'CustomerController');
+Route::get('sales', 'SaleController@search')->name('sales.search');

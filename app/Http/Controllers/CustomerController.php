@@ -44,7 +44,7 @@ class CustomerController extends Controller
 
         $customer = Customer::create($request->all());
 
-        return redirect('/customers')->with('success', 'Customer Created !');
+        return redirect('/')->with('success', 'Customer Created !');
     }
 
     /**
@@ -87,7 +87,7 @@ class CustomerController extends Controller
 
         Customer::whereId($id)->update($productValidation);
 
-        return redirect('/customers')->with('success', 'Customer Updated !');
+        return redirect('/')->with('success', 'Customer Updated !');
     }
 
     /**
@@ -100,6 +100,6 @@ class CustomerController extends Controller
     {
         $customer = Customer::findOrFail($id);
         $customer->delete();
-        return redirect('/customers')->with('success', 'Customer Deleted !');
+        return redirect('/')->with('success', 'Customer Deleted !');
     }
 }

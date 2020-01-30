@@ -56,8 +56,8 @@
             <input type="number" class="form-control" name="discount" value="{{$sale->discount}}"/>
         </div>
         <div class="form-group">
-            <label for="sale_amout">Sale Amount :</label>
-            <input type="number" class="form-control" name="sale_amout" value="{{$sale->sale_amout}}"/>
+            <label for="sale_amount">Sale Amount :</label>
+            <input type="number" class="form-control" name="sale_amount" value="{{$sale->sale_amount}}"/>
         </div>
         <div class="form-group">
             <label for="status">Status :</label>

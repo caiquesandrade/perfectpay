@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
 {
-    protected $fillable = ['product_id', 'customer_id', 'quantity', 'discount', 'sale_amout', 'status'];
+    protected $fillable = ['product_id', 'customer_id', 'quantity', 'discount', 'sale_amount', 'status'];
     protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $table ='sales';
 
