@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
+## About this Project
 
 *Primeiro passo* é *clonar* o projeto, deve se rodar o comando abaixo dentro da pasta do projeto, para instalar as dependências:
 
